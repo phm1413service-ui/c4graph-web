@@ -1,0 +1,27 @@
+/* =========================================
+   C4Graph base.css（アプリ全体の基礎デザイン）
+   ========================================= */
+
+/* --- リセット & 基本設定 --- */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: sans-serif;
+}
+
+/* --- アプリ全体のレイアウト --- */
+body {
+  display: flex;
+  height: 100vh;
+  overflow: hidden; /* 画面外スクロール防止 */
+}
+
+/* --- 汎用ユーティリティ --- */
+.hidden {
+  display: none !important;
+}

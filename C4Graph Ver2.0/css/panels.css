@@ -1,0 +1,152 @@
+/* =========================================
+   panels.css（グラフパネル UI 改善版）
+   ========================================= */
+
+/* -----------------------------------------
+   1. パネル本体
+----------------------------------------- */
+.chart-panel {
+  position: relative;
+  box-sizing: border-box;
+  border-radius: 6px;
+
+  /* border は 1 回だけ定義 */
+  border: 1px solid #eee;
+
+  background: #fff;
+
+  /* margin の重複を解消 */
+  margin: 3px;
+
+  /* 固定高さ（タイトル分を除く） */
+  height: 200px;
+
+  padding: 0;
+}
+
+/* -----------------------------------------
+   2. パネル移動時のハイライトアニメーション
+----------------------------------------- */
+@keyframes blueHighlightFade {
+  0%   { border-color: #0078D4; box-shadow: 0 0 8px #0078D4; }
+  50%  { border-color: #0078D4; box-shadow: 0 0 12px #0078D4; }
+  100% { border-color: #eee;    box-shadow: none; }
+}
+
+.chart-panel.moved {
+  animation: blueHighlightFade 4s ease forwards;
+}
+
+/* -----------------------------------------
+   3. タイトルバー
+----------------------------------------- */
+.chart-title {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 28px;
+
+  background-color: #f0f0f0;
+  border-bottom: 1px solid #ddd;
+
+  cursor: pointer;
+}
+
+/* 選択状態のパネル */
+.chart-panel.selected {
+  border-color: #0078D4;
+  background: none;
+}
+
+.chart-panel.active {
+  background: #eef6fb; /* ← 青背景は active に統合 */
+}
+
+.chart-panel.active .chart-title {
+  background-color: #0078D4; /* 青帯 */
+  color: #fff;
+}
+
+/* -----------------------------------------
+   4. パネル内部（グラフ領域）
+----------------------------------------- */
+.chart-body {
+  height: calc(100% - 28px);
+}
+
+.chart-body canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+
+/* -----------------------------------------
+   5. タイトル内のアイコン・ボタン
+----------------------------------------- */
+.settings-icon {
+  margin-left: 8px;
+  font-size: 1.2em;
+  cursor: pointer;
+  color: #555;
+}
+
+.settings-icon:hover {
+  color: #0078d7;
+  transform: scale(1.2);
+}
+
+.chart-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.chart-controls {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+.chart-controls button {
+  margin-left: 4px;
+  cursor: pointer;
+}
+
+/* -----------------------------------------
+   6. ドラッグ＆ドロップ関連
+----------------------------------------- */
+.chart-panel.drop-target-top::before,
+.chart-panel.drop-target-bottom::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background-color: #00cc66;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.chart-panel.drop-target-top::before {
+  top: -6px;
+}
+
+.chart-panel.drop-target-bottom::after {
+  bottom: -6px;
+}
+
+body.grabbing {
+  cursor: grabbing !important;
+}
+
+.chart-panel.dragging {
+  opacity: 0.6;
+}
+
+.drag-handle {
+  cursor: grab;
+}
+
+.drag-handle:active {
+  cursor: grabbing;
+}
