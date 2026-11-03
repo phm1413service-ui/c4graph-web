@@ -1,0 +1,161 @@
+/* =========================================
+   sidebar.css（サイドバー UI 改善版）
+   ========================================= */
+
+/* --- サイドバー本体 --- */
+#sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 260px;
+  min-width: 150px;
+  max-width: 600px;
+  height: 100%;
+  background: #f9f9f9;
+  border-right: 1px solid #ccc;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+  z-index: 1500;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;   /* ★ これを追加するだけでOK */
+}
+
+/* --- コントロール一覧（スクロール領域） --- */
+#controls {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 8px;
+}
+
+#sidebarCompanyLogo {
+  display: flex;
+  flex: 0 0 auto;
+  justify-content: center;
+  align-items: center;
+  margin: 0 12px 12px;
+  padding: 6px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: #fff;
+}
+
+#sidebarCompanyLogo[hidden] {
+  display: none;
+}
+
+#sidebarCompanyLogo img {
+  display: block;
+  width: min(100%, 190px);
+  height: auto;
+}
+
+
+#sidebar.open {
+  transform: translateX(0);
+}
+
+/* --- リサイズ帯（右端 5px） --- */
+#sidebar-resizer {
+  width: 5px;
+  cursor: col-resize;
+  background: transparent;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
+
+#sidebar-resizer:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+/* --- ヘッダー（タイトル行） --- */
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px;
+  background: #eee;
+}
+
+.sidebar-header span {
+  margin-left: 30px; /* アイコンとの距離調整 */
+}
+
+.sidebar-header .app-version {
+  margin-left: auto;
+  margin-right: 4px;
+  font-size: 11px;
+  color: #888;
+  font-weight: normal;
+}
+
+/* --- 縦帯（サイドバー閉時に表示） --- */
+#sidebar-band {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 16px;
+  height: 100%;
+  background: #ccc;
+  cursor: pointer;      /* ← ここを col-resize から変更 */
+  z-index: 1100;
+  transition: background 0.3s;
+}
+
+#sidebar-band:hover {
+  background: #0078D4;
+}
+
+#sidebar.open ~ #sidebar-band {
+  display: none;
+}
+
+/* =========================================
+   ★ 検索非ヒット項目は dimmed（薄く）
+   ========================================= */
+
+/* JS が .dimmed を付ける前提 */
+.chip.dimmed {
+  opacity: 0.35;
+}
+
+/* 選択済み（青背景）内のハイライト調整 */
+.chip.selected .highlight {
+  color: #000 !important; /* ← 白文字を黒に強制上書き */
+}
+
+#filterBox-wrapper {
+  position: relative;
+  width: 80%;
+}
+
+#filterBox {
+  width: 100%;
+  padding-right: 32px;
+  box-sizing: border-box;
+  height: 28px;
+  line-height: 28px;
+}
+
+#filterBox-clear {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  font-size: 16px;
+  color: #888;
+  cursor: default;
+  display: none;
+  padding: 0;
+  line-height: 1;
+}
+#filterBox-clear:hover {
+  color: #333;
+}
